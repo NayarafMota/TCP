@@ -1,0 +1,22 @@
+require 'socket'
+
+
+client = TCPSocket.new('localhost', 8080)
+
+puts 'Conectado ao servidor.'
+
+
+client.puts('Olá servidor!')
+
+
+begin
+  while line = client.gets
+    puts "Dados recebidos do servidor: #{line.chomp}"
+  end
+rescue IOError => e
+  puts "Erro de leitura: #{e.message}"
+ensure
+
+  client.close
+  puts 'Desconectado do servidor.'
+end
